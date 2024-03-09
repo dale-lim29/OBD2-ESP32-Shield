@@ -1,0 +1,828 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html">
+<style type="text/css">
+		h1, h2, h3, h4, h5, h6 {
+			font-family : segoe ui;
+			color : black;
+			background-color : #EDE7D9;
+			padding: 0.3em;
+		}
+
+		h1 {
+			font-size: 1.2em;
+		}		
+
+		h2 {
+			font-size: 1.2em;
+		}
+
+		body {
+			font-family : segoe ui;
+		}
+
+		td, th {
+			padding: 0.5em;
+			text-align : left;
+			width: 10em;
+		}
+		th {
+			background-color : #EEEEEE;
+
+		}
+		th.column1, td.column1 {
+			text-align: left;
+			width : auto;
+		}
+		table {
+			width : 100%;
+			font-size: 0.9em;
+		}
+
+		.DRC_summary_header {
+			padding-bottom : 0.1em;
+			border : 0px solid black;
+			width: 100%;
+			align: left;
+		}
+
+		.DRC_summary_header_col1,
+		.DRC_summary_header_col2, 
+		.DRC_summary_header_col3 {
+			color : black;
+			font-size:100%;
+			padding : 0em;
+			padding-top : 0.2em;
+			padding-bottom 0.2em;
+			border : 0px solid black;
+			vertical-align: top;
+			text-align: left;
+		}
+
+		.DRC_summary_header_col1 {
+			font-weight: bold;
+			width: 9em;
+		}
+
+		.DRC_summary_header_col2 {
+			width: 0.1em;
+		
+		}
+
+		.DRC_summary_header_col3 {
+			width : auto;
+		}
+
+		.header_holder {
+		    Width = 100%;
+		    border = 0px solid green;
+		    padding = 0;
+		}
+
+
+		.front_matter, .front_matter_column1, .front_matter_column2, .front_matter_column3
+		{
+			left : 0;
+			top : 0;
+			padding: 0em;
+			padding-top : 0.1em;
+			border : 0px solid black;
+			width : 100%;
+			vertical-align: top;
+			text-align: left;
+		}
+
+		.front_matter_column1 {
+			width : 8em;
+			font-weight: bold;
+		}
+
+		.front_matter_column2 {
+			width: 0.1em;
+		}
+
+		.front_matter_column3 {
+			width : auto;
+		}
+
+		.total_column1, .total_column {
+			font-weight : bold;
+		}
+		.total_column1 {
+			text-align : left;
+		}
+		.warning, .error {
+			color : red;
+			font-weight : bold;
+		}
+		tr.onmouseout_odd {
+			background-color : #white;
+		}
+		tr.onmouseout_even { 
+			background-color : #FAFAFA;
+		}
+		tr.onmouseover_odd, tr.onmouseover_even { 
+			background-color : #EEEEEE;
+		} 
+		a:link, a:visited, .q a:link,.q a:active,.q {
+			color: #21489e; 
+		}
+		a:link.callback, a:visited.callback { 
+			color: #21489e;
+		}
+		a:link.customize, a:visited.customize {
+			color: #C0C0C0;
+			position: absolute; 
+			right: 10px;
+		}	
+		p.contents_level1 {
+			font-weight : bold;
+			font-size : 110%;
+			margin : 0.5em;
+		}
+		p.contents_level2 {
+			position : relative;
+			left : 20px;
+			margin : 0.5em;
+		}
+	</style><script type="text/javascript">
+		function coordToMils(coord) {
+			var number = coord / 10000;
+			
+			if (number != number.toFixed(3))
+				number = number.toFixed(3);
+
+			return number + 'mil'
+		}
+
+		function coordToMM(coord) {
+			var number = 0.0254 * coord / 10000;
+			
+			if (number != number.toFixed(4))
+				number = number.toFixed(4);
+			
+			return number + 'mm'
+		}
+	
+		function convertCoord(coordNode, units) {
+			for (var i = 0; i < coordNode.childNodes.length; i++) {
+				coordNode.removeChild(coordNode.childNodes[i]);
+			}
+
+			var coord = coordNode.getAttribute('value');
+			if (coord != null) {
+				if (units == 'mm') {
+					textNode = document.createTextNode(coordToMM(coord));
+					coordNode.appendChild(textNode);
+				} else if (units == 'mil') {
+					textNode = document.createTextNode(coordToMils(coord));		
+					coordNode.appendChild(textNode);	
+				}
+			}
+		}
+	
+		function convertUnits(unitNode, units) {
+			for (var i = 0; i < unitNode.childNodes.length; i++) {
+				unitNode.removeChild(unitNode.childNodes[i]);		
+			}
+		
+			textNode = document.createTextNode(units); 
+			unitNode.appendChild(textNode);
+		}
+	
+		function changeUnits(radio_input, units) {
+			if (radio_input.checked) {
+			
+				var elements = document.getElementsByName('coordinate');
+				if (elements) {
+					for (var i = 0; i < elements.length; i++) {
+						convertCoord(elements[i], units);
+					}
+				}
+	
+				var elements = document.getElementsByName('units');
+				if (elements) {
+					for (var i = 0; i < elements.length; i++) {
+						convertUnits(elements[i], units);
+					}
+				}
+			}
+		}
+	</script><title>Design Rule Verification Report</title>
+</head>
+<body onload=""><img ALT="Altium" src="
+			file://C:\Users\Public\Documents\Altium\AD22\Templates\AD_logo.png
+		"><h1>Design Rule Verification Report</h1>
+<table class="header_holder">
+<td class="column1">
+<table class="front_matter">
+<tr class="front_matter">
+<td class="front_matter_column1">Date:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">3/9/2024</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Time:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">9:23:47 AM</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Elapsed Time:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">00:00:01</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Filename:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3"><a href="file:///D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc" class="file"><acronym title="D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc">D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc</acronym></a></td>
+</tr>
+</table>
+</td>
+<td class="column2">
+<table class="DRC_summary_header">
+<tr>
+<td class="DRC_summary_header_col1">Warnings:</td>
+<td class="DRC_summary_header_col2"></td>
+<td class="DRC_summary_header_col3" style="color : red">2</td></tr>
+<tr>
+<td class="DRC_summary_header_col1">Rule Violations:</td>
+<td class="DRC_summary_header_col2"></td>
+<td class="DRC_summary_header_col3" style="color : red">158</td></tr>
+</table>
+</td>
+</table><a name="ID5SWSVA01QV40NFQKPI2WD2JPVL45OMTXL55QV0LSGVWHM4IAGTF"><h2>Summary</h2></a><table>
+<tr>
+<th class="column1">Warnings</th>
+<th class="column2">Count</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDRH5DSIGH02JJVQKQGAHC5MBBBNZFXYFPKACPXHMRODMDPHFXGWK">2 Net Ties failed verification</a></td>
+<td class="column2">2</td>
+</tr>
+<tr>
+<td style="font-weight : bold; text-align : right" class="column1">Total</td>
+<td style="font-weight : bold" class="column2">2</td>
+</tr>
+</table><br><table>
+<tr>
+<th class="column1">Rule Violations</th>
+<th class="column2">Count</th>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDR0ZVE2VYUF3OG3XY4BWITN0WMM5G15PA2NZKXOVI4EOQEQKMH3O">Clearance Constraint (Gap=10mil) (All),(All)</a></td>
+<td class="column2">1</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDT0QTPAV04C3WBQ0DTT4UKYDRWC33PFF4KCGMBRGIM5MEUDHKOTZE">Short-Circuit Constraint (Allowed=No) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDUM0UXQ5OFMLLFF3A1BOVC3RPUMC34MDL12BYGBERMEGAYUROMTJC">Un-Routed Net Constraint ( (All) )</a></td>
+<td class="column2">76</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDCM03121NRI4BCITJ2FBCDRTRULGL0220FZDOWVC1AAEDU2NRTKPO">Modified Polygon (Allow modified: No), (Allow shelved: No)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#ID0A31C4SZGWTVD323K5WSJXXYHY5NQF3H3KFCUKCRAP1IM0OE5GG">Width Constraint (Min=10mil) (Max=10mil) (Preferred=10mil) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDYSRVUEMQ05L3D542MHZJDGL5FPDASIKD1XHQSQFRZ4DO5Z2NBCLO">Power Plane Connect Rule(Relief Connect )(Expansion=20mil) (Conductor Width=10mil) (Air Gap=10mil) (Entries=4) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDHB5XYTA3GITKEUBUWVCC4DGHVOY4SAVFHH5JXPAOYEQRM4EFW3P">Hole Size Constraint (Min=1mil) (Max=100mil) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDBGHIW0MI5Z1DGCXPE4EDC2LECMES3JXVDKUMCSPZVR54R5TVTUZO">Hole To Hole Clearance (Gap=10mil) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDT0KWZAAQXJ1SFRTSEHP01NPPQNTBTT0GXWY1OXHMS2VYSSBLW3TN">Minimum Solder Mask Sliver (Gap=10mil) (All),(All)</a></td>
+<td class="column2">22</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDQO5KGVY12E5BL30GQQP4AAPXLJHBJGTTCDDEI1BEAYVBZYGLPYKE">Silk To Solder Mask (Clearance=10mil) (IsPad),(All)</a></td>
+<td class="column2">59</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#ID4NW0FDRGPT0XD1H3Q1Z4CUSPTGWKZUJFBC2HGYOGXLZ5YN0FD0T">Silk to Silk (Clearance=10mil) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDNY5ZEQ5JDPQUBDFWMKHCY3AH3HP0JQZPIY5FQRLWOZV2BT4CBAZH">Net Antennae (Tolerance=0mil) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDU1G3CI5INO25PR0UQPWXZ3UXJDUPEEHWMNEFUJLAIQD4GK4VGSVF">Height Constraint (Min=0mil) (Max=1000mil) (Prefered=500mil) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr>
+<td style="font-weight : bold; text-align : right" class="column1">Total</td>
+<td style="font-weight : bold" class="column2">158</td>
+</tr>
+</table><br><a name="IDR0LAVMSQJ2HHP5JFFXT5TDP2JCSDFORUJL4K5KF2X0L4AWMMCP4"><h2>Warnings</h2></a><a name="IDRH5DSIGH02JJVQKQGAHC5MBBBNZFXYFPKACPXHMRODMDPHFXGWK"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="warning">2 Net Ties failed verification</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4114.906mil|Location2.X=4248.638mil|Location1.Y=2658.173mil|Location2.Y=2821.981mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4114.906mil|Location2.X=4248.638mil|Location1.Y=2658.173mil|Location2.Y=2821.981mil|Absolute=True">SMT Small Component J4-Jumper (4181.772mil,2690mil) on Top Layer</acronym></a>, SMT Small Component J4-Jumper (4181.772mil,2690mil) on Top Layer, has isolated copper</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5049.906mil|Location2.X=5183.638mil|Location1.Y=2658.173mil|Location2.Y=2821.981mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5049.906mil|Location2.X=5183.638mil|Location1.Y=2658.173mil|Location2.Y=2821.981mil|Absolute=True">SMT Small Component J2-Jumper (5116.772mil,2690mil) on Top Layer</acronym></a>, SMT Small Component J2-Jumper (5116.772mil,2690mil) on Top Layer, has isolated copper</td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="IDR0ZVE2VYUF3OG3XY4BWITN0WMM5G15PA2NZKXOVI4EOQEQKMH3O"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Clearance Constraint (Gap=10mil) (All),(All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4215.162mil|Location2.X=4226.412mil|Location1.Y=1738.509mil|Location2.Y=1749.759mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4215.162mil|Location2.X=4226.412mil|Location1.Y=1738.509mil|Location2.Y=1749.759mil|Absolute=True">Clearance Constraint: (9.055mil &lt; 10mil) Between Pad C8-1(4209.764mil,1740mil) on Top Layer And Pad C8-2(4232.795mil,1740mil) on Top Layer </acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="IDUM0UXQ5OFMLLFF3A1BOVC3RPUMC34MDL12BYGBERMEGAYUROMTJC"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Un-Routed Net Constraint ( (All) )</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4545.961mil|Location2.X=4670.811mil|Location1.Y=3033.441mil|Location2.Y=3221.638mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4545.961mil|Location2.X=4670.811mil|Location1.Y=3033.441mil|Location2.Y=3221.638mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad R10-2(4561.772mil,3207.008mil) on Top Layer And Pad C10-1(4655mil,3048.071mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4639.189mil|Location2.X=5030.929mil|Location1.Y=2978.559mil|Location2.Y=3062.701mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4639.189mil|Location2.X=5030.929mil|Location1.Y=2978.559mil|Location2.Y=3062.701mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad C10-1(4655mil,3048.071mil) on Top Layer And Pad SW1-4(5007.244mil,2998.307mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4429.189mil|Location2.X=4670.811mil|Location1.Y=2715.173mil|Location2.Y=3062.701mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4429.189mil|Location2.X=4670.811mil|Location1.Y=2715.173mil|Location2.Y=3062.701mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad U2-2(4445mil,2747.716mil) on Top Layer And Pad C10-1(4655mil,3048.071mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4639.189mil|Location2.X=5280.968mil|Location1.Y=3067.299mil|Location2.Y=3450.968mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4639.189mil|Location2.X=5280.968mil|Location1.Y=3067.299mil|Location2.Y=3450.968mil|Absolute=True">Un-Routed Net Constraint: Net ADC Between Pad C10-2(4655mil,3081.929mil) on Top Layer And Pad J1-10(5250mil,3420mil) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4639.189mil|Location2.X=4914.394mil|Location1.Y=2684.189mil|Location2.Y=3096.559mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4639.189mil|Location2.X=4914.394mil|Location1.Y=2684.189mil|Location2.Y=3096.559mil|Absolute=True">Un-Routed Net Constraint: Net ADC Between Pad C10-2(4655mil,3081.929mil) on Top Layer And Pad R8-1(4899.764mil,2700mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5555.213mil|Location2.X=5734.472mil|Location1.Y=1724.189mil|Location2.Y=1755.811mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5555.213mil|Location2.X=5734.472mil|Location1.Y=1724.189mil|Location2.Y=1755.811mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad C1-1(5569.843mil,1740mil) on Top Layer And Pad C2-1(5719.843mil,1740mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4535.213mil|Location2.X=5584.472mil|Location1.Y=1724.189mil|Location2.Y=1755.811mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4535.213mil|Location2.X=5584.472mil|Location1.Y=1724.189mil|Location2.Y=1755.811mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad C7-1(4549.843mil,1740mil) on Top Layer And Pad C1-1(5569.843mil,1740mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5589.071mil|Location2.X=5768.331mil|Location1.Y=1724.189mil|Location2.Y=1755.811mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5589.071mil|Location2.X=5768.331mil|Location1.Y=1724.189mil|Location2.Y=1755.811mil|Absolute=True">Un-Routed Net Constraint: Net NetC1_2 Between Pad C1-2(5603.701mil,1740mil) on Top Layer And Pad C2-2(5753.701mil,1740mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4915.961mil|Location2.X=5618.331mil|Location1.Y=1724.189mil|Location2.Y=3685.26mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4915.961mil|Location2.X=5618.331mil|Location1.Y=1724.189mil|Location2.Y=3685.26mil|Absolute=True">Un-Routed Net Constraint: Net NetC1_2 Between Pad U1-2(4931.772mil,3652.716mil) on Top Layer And Pad C1-2(5603.701mil,1740mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5705.213mil|Location2.X=5904.472mil|Location1.Y=1724.189mil|Location2.Y=1755.811mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5705.213mil|Location2.X=5904.472mil|Location1.Y=1724.189mil|Location2.Y=1755.811mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad C2-1(5719.843mil,1740mil) on Top Layer And Pad C3-1(5889.843mil,1740mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5739.071mil|Location2.X=5938.331mil|Location1.Y=1724.189mil|Location2.Y=1755.811mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5739.071mil|Location2.X=5938.331mil|Location1.Y=1724.189mil|Location2.Y=1755.811mil|Absolute=True">Un-Routed Net Constraint: Net NetC1_2 Between Pad C2-2(5753.701mil,1740mil) on Top Layer And Pad C3-2(5923.701mil,1740mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4865.961mil|Location2.X=5414.472mil|Location1.Y=1724.189mil|Location2.Y=3685.26mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4865.961mil|Location2.X=5414.472mil|Location1.Y=1724.189mil|Location2.Y=3685.26mil|Absolute=True">Un-Routed Net Constraint: Net NetC4_1 Between Pad U1-1(4881.772mil,3652.716mil) on Top Layer And Pad C4-1(5399.843mil,1740mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3665.882mil|Location2.X=5448.331mil|Location1.Y=1724.189mil|Location2.Y=2575.693mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3665.882mil|Location2.X=5448.331mil|Location1.Y=1724.189mil|Location2.Y=2575.693mil|Absolute=True">Un-Routed Net Constraint: Net NetC4_2 Between Pad D2-1(3725mil,2540.197mil) on Top Layer And Pad C4-2(5433.701mil,1740mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4879.937mil|Location2.X=5092.189mil|Location1.Y=1712.693mil|Location2.Y=1757.307mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4879.937mil|Location2.X=5092.189mil|Location1.Y=1712.693mil|Location2.Y=1757.307mil|Absolute=True">Un-Routed Net Constraint: Net NetC5_1 Between Pad C5-1(4901.063mil,1735mil) on Top Layer And Pad C6-1(5071.063mil,1735mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3665.882mil|Location2.X=4922.189mil|Location1.Y=1712.693mil|Location2.Y=2725.299mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3665.882mil|Location2.X=4922.189mil|Location1.Y=1712.693mil|Location2.Y=2725.299mil|Absolute=True">Un-Routed Net Constraint: Net NetC5_1 Between Pad D2-2(3725mil,2689.803mil) on Top Layer And Pad C5-1(4901.063mil,1735mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4879.937mil|Location2.X=4947.583mil|Location1.Y=1712.693mil|Location2.Y=3899.827mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4879.937mil|Location2.X=4947.583mil|Location1.Y=1712.693mil|Location2.Y=3899.827mil|Absolute=True">Un-Routed Net Constraint: Net NetC5_1 Between Pad C5-1(4901.063mil,1735mil) on Top Layer And Pad U1-7(4931.772mil,3867.283mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4941.354mil|Location2.X=5153.606mil|Location1.Y=1712.693mil|Location2.Y=1757.307mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4941.354mil|Location2.X=5153.606mil|Location1.Y=1712.693mil|Location2.Y=1757.307mil|Absolute=True">Un-Routed Net Constraint: Net VCC Between Pad C5-2(4962.48mil,1735mil) on Top Layer And Pad C6-2(5132.48mil,1735mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4319.032mil|Location2.X=4983.606mil|Location1.Y=1712.693mil|Location2.Y=2456.874mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4319.032mil|Location2.X=4983.606mil|Location1.Y=1712.693mil|Location2.Y=2456.874mil|Absolute=True">Un-Routed Net Constraint: Net VCC Between Pad J1-30(4350mil,2425.905mil) on Multi-Layer And Pad C5-2(4962.48mil,1735mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5111.354mil|Location2.X=5283.409mil|Location1.Y=1712.693mil|Location2.Y=1757.307mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5111.354mil|Location2.X=5283.409mil|Location1.Y=1712.693mil|Location2.Y=1757.307mil|Absolute=True">Un-Routed Net Constraint: Net VCC Between Pad C6-2(5132.48mil,1735mil) on Top Layer And Pad R2-2(5268.78mil,1740mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4370.134mil|Location2.X=4564.472mil|Location1.Y=1724.189mil|Location2.Y=1755.811mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4370.134mil|Location2.X=4564.472mil|Location1.Y=1724.189mil|Location2.Y=1755.811mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad R3-1(4384.764mil,1740mil) on Top Layer And Pad C7-1(4549.843mil,1740mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4569.071mil|Location2.X=5047.583mil|Location1.Y=1724.189mil|Location2.Y=3685.26mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4569.071mil|Location2.X=5047.583mil|Location1.Y=1724.189mil|Location2.Y=3685.26mil|Absolute=True">Un-Routed Net Constraint: Net NetC7_2 Between Pad C7-2(4583.701mil,1740mil) on Top Layer And Pad U1-4(5031.772mil,3652.716mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4199.268mil|Location2.X=4399.394mil|Location1.Y=1724.189mil|Location2.Y=1755.811mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4199.268mil|Location2.X=4399.394mil|Location1.Y=1724.189mil|Location2.Y=1755.811mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad C8-1(4209.764mil,1740mil) on Top Layer And Pad R3-1(4384.764mil,1740mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4030.134mil|Location2.X=4220.26mil|Location1.Y=1724.189mil|Location2.Y=1755.811mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4030.134mil|Location2.X=4220.26mil|Location1.Y=1724.189mil|Location2.Y=1755.811mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad R5-1(4044.764mil,1740mil) on Top Layer And Pad C8-1(4209.764mil,1740mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3889.071mil|Location2.X=4244.276mil|Location1.Y=1724.189mil|Location2.Y=1755.811mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3889.071mil|Location2.X=4244.276mil|Location1.Y=1724.189mil|Location2.Y=1755.811mil|Absolute=True">Un-Routed Net Constraint: Net NetC8_2 Between Pad C9-2(3903.701mil,1740mil) on Top Layer And Pad C8-2(4232.795mil,1740mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4221.315mil|Location2.X=4997.583mil|Location1.Y=1728.126mil|Location2.Y=3899.827mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4221.315mil|Location2.X=4997.583mil|Location1.Y=1728.126mil|Location2.Y=3899.827mil|Absolute=True">Un-Routed Net Constraint: Net NetC8_2 Between Pad C8-2(4232.795mil,1740mil) on Top Layer And Pad U1-6(4981.772mil,3867.283mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3855.213mil|Location2.X=4093.41mil|Location1.Y=1724.189mil|Location2.Y=1755.811mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3855.213mil|Location2.X=4093.41mil|Location1.Y=1724.189mil|Location2.Y=1755.811mil|Absolute=True">Un-Routed Net Constraint: Net NetC9_1 Between Pad C9-1(3869.843mil,1740mil) on Top Layer And Pad R5-2(4078.78mil,1740mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4512.654mil|Location2.X=4717.898mil|Location1.Y=3764.701mil|Location2.Y=4001.795mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4512.654mil|Location2.X=4717.898mil|Location1.Y=3764.701mil|Location2.Y=4001.795mil|Absolute=True">Un-Routed Net Constraint: Net NetD1_1 Between Pad D1-1(4571.772mil,3800.197mil) on Top Layer And Pad F1-1(4704.055mil,3985mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4512.654mil|Location2.X=5085.276mil|Location1.Y=2688.032mil|Location2.Y=3985.299mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4512.654mil|Location2.X=5085.276mil|Location1.Y=2688.032mil|Location2.Y=3985.299mil|Absolute=True">Un-Routed Net Constraint: Net VBAT Between Pad D1-2(4571.772mil,3949.803mil) on Top Layer And Pad J2-1(5081.339mil,2690mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3613.677mil|Location2.X=3784.118mil|Location1.Y=2504.701mil|Location2.Y=3132.268mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3613.677mil|Location2.X=3784.118mil|Location1.Y=2504.701mil|Location2.Y=3132.268mil|Absolute=True">Un-Routed Net Constraint: Net NetC4_2 Between Pad L1-1(3660mil,3020mil) on Top Layer And Pad D2-1(3725mil,2540.197mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3765.252mil|Location2.X=4080.024mil|Location1.Y=2907.732mil|Location2.Y=3219.748mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3765.252mil|Location2.X=4080.024mil|Location1.Y=2907.732mil|Location2.Y=3219.748mil|Absolute=True">Un-Routed Net Constraint: Net VCC Between Pad L1-2(3811.575mil,3020mil) on Top Layer And Pad D3-1(4060.276mil,3200mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4040.528mil|Location2.X=4510.811mil|Location1.Y=2715.173mil|Location2.Y=3219.748mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4040.528mil|Location2.X=4510.811mil|Location1.Y=2715.173mil|Location2.Y=3219.748mil|Absolute=True">Un-Routed Net Constraint: Net VCC Between Pad D3-1(4060.276mil,3200mil) on Top Layer And Pad U2-3(4495mil,2747.716mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4103.52mil|Location2.X=4502.583mil|Location1.Y=2627.378mil|Location2.Y=3219.748mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4103.52mil|Location2.X=4502.583mil|Location1.Y=2627.378mil|Location2.Y=3219.748mil|Absolute=True">Un-Routed Net Constraint: Net NetD3_2 Between Pad D3-2(4123.268mil,3200mil) on Top Layer And Pad R11-2(4486.772mil,2642.008mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4210.528mil|Location2.X=4980.968mil|Location1.Y=3180.252mil|Location2.Y=3450.968mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4210.528mil|Location2.X=4980.968mil|Location1.Y=3180.252mil|Location2.Y=3450.968mil|Absolute=True">Un-Routed Net Constraint: Net LED1 Between Pad D4-1(4230.276mil,3200mil) on Top Layer And Pad J1-7(4950mil,3420mil) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3984.189mil|Location2.X=4313.016mil|Location1.Y=2947.378mil|Location2.Y=3219.748mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3984.189mil|Location2.X=4313.016mil|Location1.Y=2947.378mil|Location2.Y=3219.748mil|Absolute=True">Un-Routed Net Constraint: Net NetD4_2 Between Pad R12-2(4000mil,2962.008mil) on Top Layer And Pad D4-2(4293.268mil,3200mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4380.528mil|Location2.X=4880.968mil|Location1.Y=3180.252mil|Location2.Y=3450.968mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4380.528mil|Location2.X=4880.968mil|Location1.Y=3180.252mil|Location2.Y=3450.968mil|Absolute=True">Un-Routed Net Constraint: Net LED2 Between Pad D5-1(4400.276mil,3200mil) on Top Layer And Pad J1-6(4850mil,3420mil) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4214.189mil|Location2.X=4483.016mil|Location1.Y=2955.37mil|Location2.Y=3219.748mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4214.189mil|Location2.X=4483.016mil|Location1.Y=2955.37mil|Location2.Y=3219.748mil|Absolute=True">Un-Routed Net Constraint: Net NetD5_2 Between Pad R13-2(4230mil,2970mil) on Top Layer And Pad D5-2(4463.268mil,3200mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5965.134mil|Location2.X=6408.016mil|Location1.Y=2778.677mil|Location2.Y=3046.087mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5965.134mil|Location2.X=6408.016mil|Location1.Y=2778.677mil|Location2.Y=3046.087mil|Absolute=True">Un-Routed Net Constraint: Net CAN_H Between Pad D6-1(5996.693mil,3022.402mil) on Top Layer And Pad J3-1(6374.331mil,2812.362mil) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5274.15mil|Location2.X=6028.252mil|Location1.Y=2684.189mil|Location2.Y=3046.087mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5274.15mil|Location2.X=6028.252mil|Location1.Y=2684.189mil|Location2.Y=3046.087mil|Absolute=True">Un-Routed Net Constraint: Net CAN_H Between Pad R7-2(5288.78mil,2700mil) on Top Layer And Pad D6-1(5996.693mil,3022.402mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5965.134mil|Location2.X=6408.016mil|Location1.Y=2877.102mil|Location2.Y=2971.284mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5965.134mil|Location2.X=6408.016mil|Location1.Y=2877.102mil|Location2.Y=2971.284mil|Absolute=True">Un-Routed Net Constraint: Net CAN_L Between Pad D6-2(5996.693mil,2947.599mil) on Top Layer And Pad J3-2(6374.331mil,2910.787mil) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4429.189mil|Location2.X=6028.252mil|Location1.Y=2923.914mil|Location2.Y=2994.827mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4429.189mil|Location2.X=6028.252mil|Location1.Y=2923.914mil|Location2.Y=2994.827mil|Absolute=True">Un-Routed Net Constraint: Net CAN_L Between Pad U2-7(4445mil,2962.283mil) on Top Layer And Pad D6-2(5996.693mil,2947.599mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6051.748mil|Location2.X=6408.016mil|Location1.Y=2961.315mil|Location2.Y=3141.323mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6051.748mil|Location2.X=6408.016mil|Location1.Y=2961.315mil|Location2.Y=3141.323mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad D6-3(6083.307mil,2985mil) on Top Layer And Pad J3-4(6374.331mil,3107.638mil) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5270.961mil|Location2.X=6114.866mil|Location1.Y=2961.315mil|Location2.Y=3018.055mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5270.961mil|Location2.X=6114.866mil|Location1.Y=2961.315mil|Location2.Y=3018.055mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad SW1-5(5294.646mil,2998.307mil) on Top Layer And Pad D6-3(6083.307mil,2985mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3824.15mil|Location2.X=4753.331mil|Location1.Y=3968.205mil|Location2.Y=4001.795mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3824.15mil|Location2.X=4753.331mil|Location1.Y=3968.205mil|Location2.Y=4001.795mil|Absolute=True">Un-Routed Net Constraint: Net NetC1_2 Between Pad R1-2(3838.78mil,3985mil) on Top Layer And Pad F1-2(4739.488mil,3985mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4725.646mil|Location2.X=4947.583mil|Location1.Y=3620.173mil|Location2.Y=4001.795mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4725.646mil|Location2.X=4947.583mil|Location1.Y=3620.173mil|Location2.Y=4001.795mil|Absolute=True">Un-Routed Net Constraint: Net NetC1_2 Between Pad F1-2(4739.488mil,3985mil) on Top Layer And Pad U1-2(4931.772mil,3652.716mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4419.032mil|Location2.X=4577.583mil|Location1.Y=3192.378mil|Location2.Y=3450.968mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4419.032mil|Location2.X=4577.583mil|Location1.Y=3192.378mil|Location2.Y=3450.968mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad J1-2(4450mil,3420mil) on Multi-Layer And Pad R10-2(4561.772mil,3207.008mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4529.189mil|Location2.X=5080.968mil|Location1.Y=2394.937mil|Location2.Y=2780.26mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4529.189mil|Location2.X=5080.968mil|Location1.Y=2394.937mil|Location2.Y=2780.26mil|Absolute=True">Un-Routed Net Constraint: Net GPIO5 Between Pad U2-4(4545mil,2747.716mil) on Top Layer And Pad J1-23(5050mil,2425.905mil) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4379.189mil|Location2.X=4780.968mil|Location1.Y=2394.937mil|Location2.Y=2780.26mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4379.189mil|Location2.X=4780.968mil|Location1.Y=2394.937mil|Location2.Y=2780.26mil|Absolute=True">Un-Routed Net Constraint: Net GPIO4 Between Pad U2-1(4395mil,2747.716mil) on Top Layer And Pad J1-26(4750mil,2425.905mil) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4419.032mil|Location2.X=4502.583mil|Location1.Y=2394.937mil|Location2.Y=2622.622mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4419.032mil|Location2.X=4502.583mil|Location1.Y=2394.937mil|Location2.Y=2622.622mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad J1-29(4450mil,2425.905mil) on Multi-Layer And Pad R11-1(4486.772mil,2607.992mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4370.134mil|Location2.X=4480.968mil|Location1.Y=1724.189mil|Location2.Y=2456.874mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4370.134mil|Location2.X=4480.968mil|Location1.Y=1724.189mil|Location2.Y=2456.874mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad R3-1(4384.764mil,1740mil) on Top Layer And Pad J1-29(4450mil,2425.905mil) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4319.032mil|Location2.X=4510.811mil|Location1.Y=2394.937mil|Location2.Y=2780.26mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4319.032mil|Location2.X=4510.811mil|Location1.Y=2394.937mil|Location2.Y=2780.26mil|Absolute=True">Un-Routed Net Constraint: Net VCC Between Pad J1-30(4350mil,2425.905mil) on Multi-Layer And Pad U2-3(4495mil,2747.716mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5077.402mil|Location2.X=6408.016mil|Location1.Y=2688.032mil|Location2.Y=3042.898mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5077.402mil|Location2.X=6408.016mil|Location1.Y=2688.032mil|Location2.Y=3042.898mil|Absolute=True">Un-Routed Net Constraint: Net VBAT Between Pad J2-1(5081.339mil,2690mil) on Top Layer And Pad J3-3(6374.331mil,3009.213mil) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4919.15mil|Location2.X=5156.142mil|Location1.Y=2684.189mil|Location2.Y=2715.811mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4919.15mil|Location2.X=5156.142mil|Location1.Y=2684.189mil|Location2.Y=2715.811mil|Absolute=True">Un-Routed Net Constraint: Net NetJ2_2 Between Pad R8-2(4933.78mil,2700mil) on Top Layer And Pad J2-2(5152.205mil,2690mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6340.646mil|Location2.X=6850.102mil|Location1.Y=2629.307mil|Location2.Y=2846.047mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6340.646mil|Location2.X=6850.102mil|Location1.Y=2629.307mil|Location2.Y=2846.047mil|Absolute=True">Un-Routed Net Constraint: Net CAN_H Between Pad J3-1(6374.331mil,2812.362mil) on Multi-Layer And Pad J5-6(6796.89mil,2682.52mil) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6340.646mil|Location2.X=6968.213mil|Location1.Y=2629.307mil|Location2.Y=2944.472mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6340.646mil|Location2.X=6968.213mil|Location1.Y=2629.307mil|Location2.Y=2944.472mil|Absolute=True">Un-Routed Net Constraint: Net CAN_L Between Pad J3-2(6374.331mil,2910.787mil) on Multi-Layer And Pad J5-14(6915mil,2682.52mil) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6340.646mil|Location2.X=6968.213mil|Location1.Y=2314.347mil|Location2.Y=3042.898mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6340.646mil|Location2.X=6968.213mil|Location1.Y=2314.347mil|Location2.Y=3042.898mil|Absolute=True">Un-Routed Net Constraint: Net VBAT Between Pad J3-3(6374.331mil,3009.213mil) on Multi-Layer And Pad J5-16(6915mil,2367.559mil) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4142.402mil|Location2.X=4460.811mil|Location1.Y=2688.032mil|Location2.Y=2994.827mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4142.402mil|Location2.X=4460.811mil|Location1.Y=2688.032mil|Location2.Y=2994.827mil|Absolute=True">Un-Routed Net Constraint: Net CAN_L Between Pad J4-1(4146.339mil,2690mil) on Top Layer And Pad U2-7(4445mil,2962.283mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4213.268mil|Location2.X=5269.394mil|Location1.Y=2684.189mil|Location2.Y=2715.811mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4213.268mil|Location2.X=5269.394mil|Location1.Y=2684.189mil|Location2.Y=2715.811mil|Absolute=True">Un-Routed Net Constraint: Net NetJ4_2 Between Pad J4-2(4217.205mil,2690mil) on Top Layer And Pad R7-1(5254.764mil,2700mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3613.677mil|Location2.X=4897.583mil|Location1.Y=2907.732mil|Location2.Y=3899.827mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3613.677mil|Location2.X=4897.583mil|Location1.Y=2907.732mil|Location2.Y=3899.827mil|Absolute=True">Un-Routed Net Constraint: Net NetC4_2 Between Pad L1-1(3660mil,3020mil) on Top Layer And Pad U1-8(4881.772mil,3867.283mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4545.961mil|Location2.X=5080.142mil|Location1.Y=2990.37mil|Location2.Y=3187.622mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4545.961mil|Location2.X=5080.142mil|Location1.Y=2990.37mil|Location2.Y=3187.622mil|Absolute=True">Un-Routed Net Constraint: Net NetR10_1 Between Pad R10-1(4561.772mil,3172.992mil) on Top Layer And Pad SW1-1(5062.362mil,3023.898mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3790.134mil|Location2.X=4997.583mil|Location1.Y=3620.173mil|Location2.Y=4000.811mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3790.134mil|Location2.X=4997.583mil|Location1.Y=3620.173mil|Location2.Y=4000.811mil|Absolute=True">Un-Routed Net Constraint: Net NetR1_1 Between Pad R1-1(3804.764mil,3985mil) on Top Layer And Pad U1-3(4981.772mil,3652.716mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4429.189mil|Location2.X=4502.583mil|Location1.Y=2593.362mil|Location2.Y=2780.26mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4429.189mil|Location2.X=4502.583mil|Location1.Y=2593.362mil|Location2.Y=2780.26mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad U2-2(4445mil,2747.716mil) on Top Layer And Pad R11-1(4486.772mil,2607.992mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3984.189mil|Location2.X=4245.811mil|Location1.Y=2913.362mil|Location2.Y=2950.614mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3984.189mil|Location2.X=4245.811mil|Location1.Y=2913.362mil|Location2.Y=2950.614mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad R12-1(4000mil,2927.992mil) on Top Layer And Pad R13-1(4230mil,2935.984mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3950.134mil|Location2.X=4015.811mil|Location1.Y=2684.189mil|Location2.Y=2942.622mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3950.134mil|Location2.X=4015.811mil|Location1.Y=2684.189mil|Location2.Y=2942.622mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad R9-1(3964.764mil,2700mil) on Top Layer And Pad R12-1(4000mil,2927.992mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4214.189mil|Location2.X=4460.811mil|Location1.Y=2715.173mil|Location2.Y=2950.614mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4214.189mil|Location2.X=4460.811mil|Location1.Y=2715.173mil|Location2.Y=2950.614mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad R13-1(4230mil,2935.984mil) on Top Layer And Pad U2-2(4445mil,2747.716mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4744.15mil|Location2.X=5249.394mil|Location1.Y=1724.189mil|Location2.Y=1755.811mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4744.15mil|Location2.X=5249.394mil|Location1.Y=1724.189mil|Location2.Y=1755.811mil|Absolute=True">Un-Routed Net Constraint: Net NetR2_1 Between Pad R4-2(4758.78mil,1740mil) on Top Layer And Pad R2-1(5234.764mil,1740mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4404.15mil|Location2.X=4997.583mil|Location1.Y=1724.189mil|Location2.Y=3685.26mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4404.15mil|Location2.X=4997.583mil|Location1.Y=1724.189mil|Location2.Y=3685.26mil|Absolute=True">Un-Routed Net Constraint: Net NetR1_1 Between Pad R3-2(4418.78mil,1740mil) on Top Layer And Pad U1-3(4981.772mil,3652.716mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3724.15mil|Location2.X=4739.394mil|Location1.Y=1724.189mil|Location2.Y=1755.811mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3724.15mil|Location2.X=4739.394mil|Location1.Y=1724.189mil|Location2.Y=1755.811mil|Absolute=True">Un-Routed Net Constraint: Net NetR4_1 Between Pad R6-2(3738.78mil,1740mil) on Top Layer And Pad R4-1(4724.764mil,1740mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4710.134mil|Location2.X=5047.583mil|Location1.Y=1724.189mil|Location2.Y=3899.827mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4710.134mil|Location2.X=5047.583mil|Location1.Y=1724.189mil|Location2.Y=3899.827mil|Absolute=True">Un-Routed Net Constraint: Net NetR4_1 Between Pad R4-1(4724.764mil,1740mil) on Top Layer And Pad U1-5(5031.772mil,3867.283mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3690.134mil|Location2.X=4059.394mil|Location1.Y=1724.189mil|Location2.Y=1755.811mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3690.134mil|Location2.X=4059.394mil|Location1.Y=1724.189mil|Location2.Y=1755.811mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad R6-1(3704.764mil,1740mil) on Top Layer And Pad R5-1(4044.764mil,1740mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4479.189mil|Location2.X=5303.409mil|Location1.Y=2684.189mil|Location2.Y=2994.827mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4479.189mil|Location2.X=5303.409mil|Location1.Y=2684.189mil|Location2.Y=2994.827mil|Absolute=True">Un-Routed Net Constraint: Net CAN_H Between Pad U2-6(4495mil,2962.283mil) on Top Layer And Pad R7-2(5288.78mil,2700mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3984.15mil|Location2.X=4914.394mil|Location1.Y=2684.189mil|Location2.Y=2715.811mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3984.15mil|Location2.X=4914.394mil|Location1.Y=2684.189mil|Location2.Y=2715.811mil|Absolute=True">Un-Routed Net Constraint: Net ADC Between Pad R9-2(3998.78mil,2700mil) on Top Layer And Pad R8-1(4899.764mil,2700mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4529.189mil|Location2.X=5198.252mil|Location1.Y=2929.74mil|Location2.Y=3057.425mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4529.189mil|Location2.X=5198.252mil|Location1.Y=2929.74mil|Location2.Y=3057.425mil|Absolute=True">Un-Routed Net Constraint: Net NetSW1_2 Between Pad U2-5(4545mil,2962.283mil) on Top Layer And Pad SW1-2(5180.472mil,3023.898mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4479.189mil|Location2.X=5257.307mil|Location1.Y=2715.173mil|Location2.Y=3057.425mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4479.189mil|Location2.X=5257.307mil|Location1.Y=2715.173mil|Location2.Y=3057.425mil|Absolute=True">Un-Routed Net Constraint: Net VCC Between Pad U2-3(4495mil,2747.716mil) on Top Layer And Pad SW1-3(5239.528mil,3023.898mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4983.559mil|Location2.X=5030.929mil|Location1.Y=2891.945mil|Location2.Y=3018.055mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4983.559mil|Location2.X=5030.929mil|Location1.Y=2891.945mil|Location2.Y=3018.055mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad SW1-7(5007.244mil,2911.693mil) on Top Layer And Pad SW1-4(5007.244mil,2998.307mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5270.961mil|Location2.X=5318.331mil|Location1.Y=2891.945mil|Location2.Y=3018.055mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5270.961mil|Location2.X=5318.331mil|Location1.Y=2891.945mil|Location2.Y=3018.055mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad SW1-6(5294.646mil,2911.693mil) on Top Layer And Pad SW1-5(5294.646mil,2998.307mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4983.559mil|Location2.X=5318.331mil|Location1.Y=2891.945mil|Location2.Y=2931.441mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4983.559mil|Location2.X=5318.331mil|Location1.Y=2891.945mil|Location2.Y=2931.441mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad SW1-7(5007.244mil,2911.693mil) on Top Layer And Pad SW1-6(5294.646mil,2911.693mil) on Top Layer </acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="IDT0KWZAAQXJ1SFRTSEHP01NPPQNTBTT0GXWY1OXHMS2VYSSBLW3TN"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Minimum Solder Mask Sliver (Gap=10mil) (All),(All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4643.198mil|Location2.X=4654.448mil|Location1.Y=3059.375mil|Location2.Y=3070.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4643.198mil|Location2.X=4654.448mil|Location1.Y=3059.375mil|Location2.Y=3070.625mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (4.598mil &lt; 10mil) Between Pad C10-1(4655mil,3048.071mil) on Top Layer And Pad C10-2(4655mil,3081.929mil) on Top Layer [Top Solder] Mask Sliver [4.598mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5581.147mil|Location2.X=5592.397mil|Location1.Y=1740.552mil|Location2.Y=1751.802mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5581.147mil|Location2.X=5592.397mil|Location1.Y=1740.552mil|Location2.Y=1751.802mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (4.598mil &lt; 10mil) Between Pad C1-1(5569.843mil,1740mil) on Top Layer And Pad C1-2(5603.701mil,1740mil) on Top Layer [Top Solder] Mask Sliver [4.598mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5731.147mil|Location2.X=5742.397mil|Location1.Y=1740.552mil|Location2.Y=1751.802mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5731.147mil|Location2.X=5742.397mil|Location1.Y=1740.552mil|Location2.Y=1751.802mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (4.598mil &lt; 10mil) Between Pad C2-1(5719.843mil,1740mil) on Top Layer And Pad C2-2(5753.701mil,1740mil) on Top Layer [Top Solder] Mask Sliver [4.598mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5901.147mil|Location2.X=5912.397mil|Location1.Y=1740.552mil|Location2.Y=1751.802mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5901.147mil|Location2.X=5912.397mil|Location1.Y=1740.552mil|Location2.Y=1751.802mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (4.598mil &lt; 10mil) Between Pad C3-1(5889.843mil,1740mil) on Top Layer And Pad C3-2(5923.701mil,1740mil) on Top Layer [Top Solder] Mask Sliver [4.598mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5411.147mil|Location2.X=5422.397mil|Location1.Y=1740.552mil|Location2.Y=1751.802mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5411.147mil|Location2.X=5422.397mil|Location1.Y=1740.552mil|Location2.Y=1751.802mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (4.598mil &lt; 10mil) Between Pad C4-1(5399.843mil,1740mil) on Top Layer And Pad C4-2(5433.701mil,1740mil) on Top Layer [Top Solder] Mask Sliver [4.598mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4561.147mil|Location2.X=4572.397mil|Location1.Y=1740.552mil|Location2.Y=1751.802mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4561.147mil|Location2.X=4572.397mil|Location1.Y=1740.552mil|Location2.Y=1751.802mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (4.598mil &lt; 10mil) Between Pad C7-1(4549.843mil,1740mil) on Top Layer And Pad C7-2(4583.701mil,1740mil) on Top Layer [Top Solder] Mask Sliver [4.598mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4215.162mil|Location2.X=4226.412mil|Location1.Y=1738.509mil|Location2.Y=1749.759mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4215.162mil|Location2.X=4226.412mil|Location1.Y=1738.509mil|Location2.Y=1749.759mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.055mil &lt; 10mil) Between Pad C8-1(4209.764mil,1740mil) on Top Layer And Pad C8-2(4232.795mil,1740mil) on Top Layer [Top Solder] Mask Sliver [1.055mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3881.147mil|Location2.X=3892.397mil|Location1.Y=1740.552mil|Location2.Y=1751.802mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3881.147mil|Location2.X=3892.397mil|Location1.Y=1740.552mil|Location2.Y=1751.802mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (4.598mil &lt; 10mil) Between Pad C9-1(3869.843mil,1740mil) on Top Layer And Pad C9-2(3903.701mil,1740mil) on Top Layer [Top Solder] Mask Sliver [4.598mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4716.147mil|Location2.X=4727.397mil|Location1.Y=3962.58mil|Location2.Y=3973.83mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4716.147mil|Location2.X=4727.397mil|Location1.Y=3962.58mil|Location2.Y=3973.83mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (7.748mil &lt; 10mil) Between Pad F1-1(4704.055mil,3985mil) on Top Layer And Pad F1-2(4739.488mil,3985mil) on Top Layer [Top Solder] Mask Sliver [7.748mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4549.651mil|Location2.X=4560.901mil|Location1.Y=3184.375mil|Location2.Y=3195.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4549.651mil|Location2.X=4560.901mil|Location1.Y=3184.375mil|Location2.Y=3195.625mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (4.756mil &lt; 10mil) Between Pad R10-1(4561.772mil,3172.992mil) on Top Layer And Pad R10-2(4561.772mil,3207.008mil) on Top Layer [Top Solder] Mask Sliver [4.756mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3816.147mil|Location2.X=3827.397mil|Location1.Y=3985.871mil|Location2.Y=3997.121mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3816.147mil|Location2.X=3827.397mil|Location1.Y=3985.871mil|Location2.Y=3997.121mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (4.756mil &lt; 10mil) Between Pad R1-1(3804.764mil,3985mil) on Top Layer And Pad R1-2(3838.78mil,3985mil) on Top Layer [Top Solder] Mask Sliver [4.756mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4474.651mil|Location2.X=4485.901mil|Location1.Y=2619.375mil|Location2.Y=2630.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4474.651mil|Location2.X=4485.901mil|Location1.Y=2619.375mil|Location2.Y=2630.625mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (4.756mil &lt; 10mil) Between Pad R11-1(4486.772mil,2607.992mil) on Top Layer And Pad R11-2(4486.772mil,2642.008mil) on Top Layer [Top Solder] Mask Sliver [4.756mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3987.879mil|Location2.X=3999.129mil|Location1.Y=2939.375mil|Location2.Y=2950.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3987.879mil|Location2.X=3999.129mil|Location1.Y=2939.375mil|Location2.Y=2950.625mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (4.756mil &lt; 10mil) Between Pad R12-1(4000mil,2927.992mil) on Top Layer And Pad R12-2(4000mil,2962.008mil) on Top Layer [Top Solder] Mask Sliver [4.756mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4217.879mil|Location2.X=4229.129mil|Location1.Y=2947.367mil|Location2.Y=2958.617mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4217.879mil|Location2.X=4229.129mil|Location1.Y=2947.367mil|Location2.Y=2958.617mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (4.756mil &lt; 10mil) Between Pad R13-1(4230mil,2935.984mil) on Top Layer And Pad R13-2(4230mil,2970mil) on Top Layer [Top Solder] Mask Sliver [4.756mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5246.147mil|Location2.X=5257.397mil|Location1.Y=1740.871mil|Location2.Y=1752.121mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5246.147mil|Location2.X=5257.397mil|Location1.Y=1740.871mil|Location2.Y=1752.121mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (4.756mil &lt; 10mil) Between Pad R2-1(5234.764mil,1740mil) on Top Layer And Pad R2-2(5268.78mil,1740mil) on Top Layer [Top Solder] Mask Sliver [4.756mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4396.147mil|Location2.X=4407.397mil|Location1.Y=1740.871mil|Location2.Y=1752.121mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4396.147mil|Location2.X=4407.397mil|Location1.Y=1740.871mil|Location2.Y=1752.121mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (4.756mil &lt; 10mil) Between Pad R3-1(4384.764mil,1740mil) on Top Layer And Pad R3-2(4418.78mil,1740mil) on Top Layer [Top Solder] Mask Sliver [4.756mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4736.147mil|Location2.X=4747.397mil|Location1.Y=1740.871mil|Location2.Y=1752.121mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4736.147mil|Location2.X=4747.397mil|Location1.Y=1740.871mil|Location2.Y=1752.121mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (4.756mil &lt; 10mil) Between Pad R4-1(4724.764mil,1740mil) on Top Layer And Pad R4-2(4758.78mil,1740mil) on Top Layer [Top Solder] Mask Sliver [4.756mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4056.147mil|Location2.X=4067.397mil|Location1.Y=1740.871mil|Location2.Y=1752.121mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4056.147mil|Location2.X=4067.397mil|Location1.Y=1740.871mil|Location2.Y=1752.121mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (4.756mil &lt; 10mil) Between Pad R5-1(4044.764mil,1740mil) on Top Layer And Pad R5-2(4078.78mil,1740mil) on Top Layer [Top Solder] Mask Sliver [4.756mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3716.147mil|Location2.X=3727.397mil|Location1.Y=1740.871mil|Location2.Y=1752.121mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3716.147mil|Location2.X=3727.397mil|Location1.Y=1740.871mil|Location2.Y=1752.121mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (4.756mil &lt; 10mil) Between Pad R6-1(3704.764mil,1740mil) on Top Layer And Pad R6-2(3738.78mil,1740mil) on Top Layer [Top Solder] Mask Sliver [4.756mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5266.147mil|Location2.X=5277.397mil|Location1.Y=2700.871mil|Location2.Y=2712.121mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5266.147mil|Location2.X=5277.397mil|Location1.Y=2700.871mil|Location2.Y=2712.121mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (4.756mil &lt; 10mil) Between Pad R7-1(5254.764mil,2700mil) on Top Layer And Pad R7-2(5288.78mil,2700mil) on Top Layer [Top Solder] Mask Sliver [4.756mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4911.147mil|Location2.X=4922.397mil|Location1.Y=2700.871mil|Location2.Y=2712.121mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4911.147mil|Location2.X=4922.397mil|Location1.Y=2700.871mil|Location2.Y=2712.121mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (4.756mil &lt; 10mil) Between Pad R8-1(4899.764mil,2700mil) on Top Layer And Pad R8-2(4933.78mil,2700mil) on Top Layer [Top Solder] Mask Sliver [4.756mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3976.147mil|Location2.X=3987.397mil|Location1.Y=2700.871mil|Location2.Y=2712.121mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3976.147mil|Location2.X=3987.397mil|Location1.Y=2700.871mil|Location2.Y=2712.121mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (4.756mil &lt; 10mil) Between Pad R9-1(3964.764mil,2700mil) on Top Layer And Pad R9-2(3998.78mil,2700mil) on Top Layer [Top Solder] Mask Sliver [4.756mil]</acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="IDQO5KGVY12E5BL30GQQP4AAPXLJHBJGTTCDDEI1BEAYVBZYGLPYKE"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Silk To Solder Mask (Clearance=10mil) (IsPad),(All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4036.119mil|Location2.X=4047.369mil|Location1.Y=3212.907mil|Location2.Y=3224.157mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4036.119mil|Location2.X=4047.369mil|Location1.Y=3212.907mil|Location2.Y=3224.157mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.874mil &lt; 10mil) Between Arc (4036.176mil,3224.1mil) on Top Overlay And Pad D3-1(4060.276mil,3200mil) on Top Layer [Top Overlay] to [Top Solder] clearance [7.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4206.119mil|Location2.X=4217.369mil|Location1.Y=3212.907mil|Location2.Y=3224.157mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4206.119mil|Location2.X=4217.369mil|Location1.Y=3212.907mil|Location2.Y=3224.157mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.874mil &lt; 10mil) Between Arc (4206.176mil,3224.1mil) on Top Overlay And Pad D4-1(4230.276mil,3200mil) on Top Layer [Top Overlay] to [Top Solder] clearance [7.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4376.119mil|Location2.X=4387.369mil|Location1.Y=3212.907mil|Location2.Y=3224.157mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4376.119mil|Location2.X=4387.369mil|Location1.Y=3212.907mil|Location2.Y=3224.157mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.874mil &lt; 10mil) Between Arc (4376.176mil,3224.1mil) on Top Overlay And Pad D5-1(4400.276mil,3200mil) on Top Layer [Top Overlay] to [Top Solder] clearance [7.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4635.269mil|Location2.X=4646.519mil|Location1.Y=3047.442mil|Location2.Y=3058.692mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4635.269mil|Location2.X=4646.519mil|Location1.Y=3047.442mil|Location2.Y=3058.692mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (4.582mil &lt; 10mil) Between Pad C10-1(4655mil,3048.071mil) on Top Layer And Track (4636.102mil,3045.315mil)(4636.102mil,3084.685mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [4.582mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4663.481mil|Location2.X=4674.731mil|Location1.Y=3047.442mil|Location2.Y=3058.692mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4663.481mil|Location2.X=4674.731mil|Location1.Y=3047.442mil|Location2.Y=3058.692mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (4.582mil &lt; 10mil) Between Pad C10-1(4655mil,3048.071mil) on Top Layer And Track (4673.898mil,3045.315mil)(4673.898mil,3084.685mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [4.582mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4635.269mil|Location2.X=4646.519mil|Location1.Y=3071.308mil|Location2.Y=3082.558mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4635.269mil|Location2.X=4646.519mil|Location1.Y=3071.308mil|Location2.Y=3082.558mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (4.582mil &lt; 10mil) Between Pad C10-2(4655mil,3081.929mil) on Top Layer And Track (4636.102mil,3045.315mil)(4636.102mil,3084.685mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [4.582mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4663.481mil|Location2.X=4674.731mil|Location1.Y=3071.308mil|Location2.Y=3082.558mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4663.481mil|Location2.X=4674.731mil|Location1.Y=3071.308mil|Location2.Y=3082.558mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (4.582mil &lt; 10mil) Between Pad C10-2(4655mil,3081.929mil) on Top Layer And Track (4673.898mil,3045.315mil)(4673.898mil,3084.685mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [4.582mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5569.214mil|Location2.X=5580.464mil|Location1.Y=1720.268mil|Location2.Y=1731.518mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5569.214mil|Location2.X=5580.464mil|Location1.Y=1720.268mil|Location2.Y=1731.518mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (4.582mil &lt; 10mil) Between Pad C1-1(5569.843mil,1740mil) on Top Layer And Track (5567.087mil,1721.102mil)(5606.457mil,1721.102mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [4.582mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5569.214mil|Location2.X=5580.464mil|Location1.Y=1748.481mil|Location2.Y=1759.731mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5569.214mil|Location2.X=5580.464mil|Location1.Y=1748.481mil|Location2.Y=1759.731mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (4.582mil &lt; 10mil) Between Pad C1-1(5569.843mil,1740mil) on Top Layer And Track (5567.087mil,1758.898mil)(5606.457mil,1758.898mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [4.582mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5593.08mil|Location2.X=5604.33mil|Location1.Y=1720.268mil|Location2.Y=1731.518mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5593.08mil|Location2.X=5604.33mil|Location1.Y=1720.268mil|Location2.Y=1731.518mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (4.582mil &lt; 10mil) Between Pad C1-2(5603.701mil,1740mil) on Top Layer And Track (5567.087mil,1721.102mil)(5606.457mil,1721.102mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [4.582mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5593.08mil|Location2.X=5604.33mil|Location1.Y=1748.481mil|Location2.Y=1759.731mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5593.08mil|Location2.X=5604.33mil|Location1.Y=1748.481mil|Location2.Y=1759.731mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (4.582mil &lt; 10mil) Between Pad C1-2(5603.701mil,1740mil) on Top Layer And Track (5567.087mil,1758.898mil)(5606.457mil,1758.898mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [4.582mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5719.214mil|Location2.X=5730.464mil|Location1.Y=1720.268mil|Location2.Y=1731.518mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5719.214mil|Location2.X=5730.464mil|Location1.Y=1720.268mil|Location2.Y=1731.518mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (4.582mil &lt; 10mil) Between Pad C2-1(5719.843mil,1740mil) on Top Layer And Track (5717.087mil,1721.102mil)(5756.457mil,1721.102mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [4.582mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5719.214mil|Location2.X=5730.464mil|Location1.Y=1748.481mil|Location2.Y=1759.731mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5719.214mil|Location2.X=5730.464mil|Location1.Y=1748.481mil|Location2.Y=1759.731mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (4.582mil &lt; 10mil) Between Pad C2-1(5719.843mil,1740mil) on Top Layer And Track (5717.087mil,1758.898mil)(5756.457mil,1758.898mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [4.582mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5743.08mil|Location2.X=5754.33mil|Location1.Y=1720.268mil|Location2.Y=1731.518mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5743.08mil|Location2.X=5754.33mil|Location1.Y=1720.268mil|Location2.Y=1731.518mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (4.582mil &lt; 10mil) Between Pad C2-2(5753.701mil,1740mil) on Top Layer And Track (5717.087mil,1721.102mil)(5756.457mil,1721.102mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [4.582mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5743.08mil|Location2.X=5754.33mil|Location1.Y=1748.481mil|Location2.Y=1759.731mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5743.08mil|Location2.X=5754.33mil|Location1.Y=1748.481mil|Location2.Y=1759.731mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (4.582mil &lt; 10mil) Between Pad C2-2(5753.701mil,1740mil) on Top Layer And Track (5717.087mil,1758.898mil)(5756.457mil,1758.898mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [4.582mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5889.214mil|Location2.X=5900.464mil|Location1.Y=1720.268mil|Location2.Y=1731.518mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5889.214mil|Location2.X=5900.464mil|Location1.Y=1720.268mil|Location2.Y=1731.518mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (4.582mil &lt; 10mil) Between Pad C3-1(5889.843mil,1740mil) on Top Layer And Track (5887.087mil,1721.102mil)(5926.457mil,1721.102mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [4.582mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5889.214mil|Location2.X=5900.464mil|Location1.Y=1748.481mil|Location2.Y=1759.731mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5889.214mil|Location2.X=5900.464mil|Location1.Y=1748.481mil|Location2.Y=1759.731mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (4.582mil &lt; 10mil) Between Pad C3-1(5889.843mil,1740mil) on Top Layer And Track (5887.087mil,1758.898mil)(5926.457mil,1758.898mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [4.582mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5913.08mil|Location2.X=5924.33mil|Location1.Y=1720.268mil|Location2.Y=1731.518mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5913.08mil|Location2.X=5924.33mil|Location1.Y=1720.268mil|Location2.Y=1731.518mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (4.582mil &lt; 10mil) Between Pad C3-2(5923.701mil,1740mil) on Top Layer And Track (5887.087mil,1721.102mil)(5926.457mil,1721.102mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [4.582mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5913.08mil|Location2.X=5924.33mil|Location1.Y=1748.481mil|Location2.Y=1759.731mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5913.08mil|Location2.X=5924.33mil|Location1.Y=1748.481mil|Location2.Y=1759.731mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (4.582mil &lt; 10mil) Between Pad C3-2(5923.701mil,1740mil) on Top Layer And Track (5887.087mil,1758.898mil)(5926.457mil,1758.898mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [4.582mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5399.214mil|Location2.X=5410.464mil|Location1.Y=1720.268mil|Location2.Y=1731.518mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5399.214mil|Location2.X=5410.464mil|Location1.Y=1720.268mil|Location2.Y=1731.518mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (4.582mil &lt; 10mil) Between Pad C4-1(5399.843mil,1740mil) on Top Layer And Track (5397.087mil,1721.102mil)(5436.457mil,1721.102mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [4.582mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5399.214mil|Location2.X=5410.464mil|Location1.Y=1748.481mil|Location2.Y=1759.731mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5399.214mil|Location2.X=5410.464mil|Location1.Y=1748.481mil|Location2.Y=1759.731mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (4.582mil &lt; 10mil) Between Pad C4-1(5399.843mil,1740mil) on Top Layer And Track (5397.087mil,1758.898mil)(5436.457mil,1758.898mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [4.582mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5423.08mil|Location2.X=5434.33mil|Location1.Y=1720.268mil|Location2.Y=1731.518mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5423.08mil|Location2.X=5434.33mil|Location1.Y=1720.268mil|Location2.Y=1731.518mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (4.582mil &lt; 10mil) Between Pad C4-2(5433.701mil,1740mil) on Top Layer And Track (5397.087mil,1721.102mil)(5436.457mil,1721.102mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [4.582mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5423.08mil|Location2.X=5434.33mil|Location1.Y=1748.481mil|Location2.Y=1759.731mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5423.08mil|Location2.X=5434.33mil|Location1.Y=1748.481mil|Location2.Y=1759.731mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (4.582mil &lt; 10mil) Between Pad C4-2(5433.701mil,1740mil) on Top Layer And Track (5397.087mil,1758.898mil)(5436.457mil,1758.898mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [4.582mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4549.214mil|Location2.X=4560.464mil|Location1.Y=1720.268mil|Location2.Y=1731.518mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4549.214mil|Location2.X=4560.464mil|Location1.Y=1720.268mil|Location2.Y=1731.518mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (4.582mil &lt; 10mil) Between Pad C7-1(4549.843mil,1740mil) on Top Layer And Track (4547.087mil,1721.102mil)(4586.457mil,1721.102mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [4.582mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4549.214mil|Location2.X=4560.464mil|Location1.Y=1748.481mil|Location2.Y=1759.731mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4549.214mil|Location2.X=4560.464mil|Location1.Y=1748.481mil|Location2.Y=1759.731mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (4.582mil &lt; 10mil) Between Pad C7-1(4549.843mil,1740mil) on Top Layer And Track (4547.087mil,1758.898mil)(4586.457mil,1758.898mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [4.582mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4573.08mil|Location2.X=4584.33mil|Location1.Y=1720.268mil|Location2.Y=1731.518mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4573.08mil|Location2.X=4584.33mil|Location1.Y=1720.268mil|Location2.Y=1731.518mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (4.582mil &lt; 10mil) Between Pad C7-2(4583.701mil,1740mil) on Top Layer And Track (4547.087mil,1721.102mil)(4586.457mil,1721.102mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [4.582mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4573.08mil|Location2.X=4584.33mil|Location1.Y=1748.481mil|Location2.Y=1759.731mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4573.08mil|Location2.X=4584.33mil|Location1.Y=1748.481mil|Location2.Y=1759.731mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (4.582mil &lt; 10mil) Between Pad C7-2(4583.701mil,1740mil) on Top Layer And Track (4547.087mil,1758.898mil)(4586.457mil,1758.898mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [4.582mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4207.387mil|Location2.X=4218.637mil|Location1.Y=1721.548mil|Location2.Y=1732.798mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4207.387mil|Location2.X=4218.637mil|Location1.Y=1721.548mil|Location2.Y=1732.798mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (9.898mil &lt; 10mil) Between Pad C8-1(4209.764mil,1740mil) on Top Layer And Track (4209.961mil,1719.724mil)(4233.583mil,1719.724mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [9.898mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4207.387mil|Location2.X=4218.637mil|Location1.Y=1747.202mil|Location2.Y=1758.452mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4207.387mil|Location2.X=4218.637mil|Location1.Y=1747.202mil|Location2.Y=1758.452mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (9.898mil &lt; 10mil) Between Pad C8-1(4209.764mil,1740mil) on Top Layer And Track (4209.961mil,1760.276mil)(4233.583mil,1760.276mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [9.898mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4223.43mil|Location2.X=4234.68mil|Location1.Y=1721.548mil|Location2.Y=1732.798mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4223.43mil|Location2.X=4234.68mil|Location1.Y=1721.548mil|Location2.Y=1732.798mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (9.897mil &lt; 10mil) Between Pad C8-2(4232.795mil,1740mil) on Top Layer And Track (4209.961mil,1719.724mil)(4233.583mil,1719.724mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [9.897mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4223.43mil|Location2.X=4234.68mil|Location1.Y=1747.202mil|Location2.Y=1758.452mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4223.43mil|Location2.X=4234.68mil|Location1.Y=1747.202mil|Location2.Y=1758.452mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (9.897mil &lt; 10mil) Between Pad C8-2(4232.795mil,1740mil) on Top Layer And Track (4209.961mil,1760.276mil)(4233.583mil,1760.276mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [9.897mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3869.214mil|Location2.X=3880.464mil|Location1.Y=1720.268mil|Location2.Y=1731.518mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3869.214mil|Location2.X=3880.464mil|Location1.Y=1720.268mil|Location2.Y=1731.518mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (4.582mil &lt; 10mil) Between Pad C9-1(3869.843mil,1740mil) on Top Layer And Track (3867.087mil,1721.102mil)(3906.457mil,1721.102mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [4.582mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3869.214mil|Location2.X=3880.464mil|Location1.Y=1748.481mil|Location2.Y=1759.731mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3869.214mil|Location2.X=3880.464mil|Location1.Y=1748.481mil|Location2.Y=1759.731mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (4.582mil &lt; 10mil) Between Pad C9-1(3869.843mil,1740mil) on Top Layer And Track (3867.087mil,1758.898mil)(3906.457mil,1758.898mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [4.582mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3893.08mil|Location2.X=3904.33mil|Location1.Y=1720.268mil|Location2.Y=1731.518mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3893.08mil|Location2.X=3904.33mil|Location1.Y=1720.268mil|Location2.Y=1731.518mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (4.582mil &lt; 10mil) Between Pad C9-2(3903.701mil,1740mil) on Top Layer And Track (3867.087mil,1721.102mil)(3906.457mil,1721.102mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [4.582mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3893.08mil|Location2.X=3904.33mil|Location1.Y=1748.481mil|Location2.Y=1759.731mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3893.08mil|Location2.X=3904.33mil|Location1.Y=1748.481mil|Location2.Y=1759.731mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (4.582mil &lt; 10mil) Between Pad C9-2(3903.701mil,1740mil) on Top Layer And Track (3867.087mil,1758.898mil)(3906.457mil,1758.898mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [4.582mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4398.154mil|Location2.X=4405.82mil|Location1.Y=3180.419mil|Location2.Y=3188.085mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4398.154mil|Location2.X=4405.82mil|Location1.Y=3180.419mil|Location2.Y=3188.085mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 10mil) Between Pad D5-1(4400.276mil,3200mil) on Top Layer And Text "U2" (4362mil,3134mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4458.134mil|Location2.X=4465.801mil|Location1.Y=3180.151mil|Location2.Y=3187.817mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4458.134mil|Location2.X=4465.801mil|Location1.Y=3180.151mil|Location2.Y=3187.817mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 10mil) Between Pad D5-2(4463.268mil,3200mil) on Top Layer And Text "U2" (4362mil,3134mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6020.419mil|Location2.X=6028.085mil|Location1.Y=2998.883mil|Location2.Y=3006.55mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6020.419mil|Location2.X=6028.085mil|Location1.Y=2998.883mil|Location2.Y=3006.55mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 10mil) Between Pad D6-1(5996.693mil,3022.402mil) on Top Layer And Track (6024.252mil,2925.945mil)(6024.252mil,3044.055mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6020.419mil|Location2.X=6028.085mil|Location1.Y=3040.222mil|Location2.Y=3047.888mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6020.419mil|Location2.X=6028.085mil|Location1.Y=3040.222mil|Location2.Y=3047.888mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 10mil) Between Pad D6-1(5996.693mil,3022.402mil) on Top Layer And Track (6024.252mil,3044.055mil)(6055.748mil,3044.055mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6020.419mil|Location2.X=6028.085mil|Location1.Y=2924.08mil|Location2.Y=2931.747mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6020.419mil|Location2.X=6028.085mil|Location1.Y=2924.08mil|Location2.Y=2931.747mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 10mil) Between Pad D6-2(5996.693mil,2947.599mil) on Top Layer And Track (6024.252mil,2925.945mil)(6024.252mil,3044.055mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6020.419mil|Location2.X=6028.085mil|Location1.Y=2922.112mil|Location2.Y=2929.778mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6020.419mil|Location2.X=6028.085mil|Location1.Y=2922.112mil|Location2.Y=2929.778mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 10mil) Between Pad D6-2(5996.693mil,2947.599mil) on Top Layer And Track (6024.252mil,2925.945mil)(6055.748mil,2925.945mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6051.915mil|Location2.X=6059.581mil|Location1.Y=2961.482mil|Location2.Y=2969.148mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6051.915mil|Location2.X=6059.581mil|Location1.Y=2961.482mil|Location2.Y=2969.148mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 10mil) Between Pad D6-3(6083.307mil,2985mil) on Top Layer And Track (6055.748mil,2925.945mil)(6055.748mil,3044.055mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3612.052mil|Location2.X=3623.302mil|Location1.Y=2903.155mil|Location2.Y=2914.405mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3612.052mil|Location2.X=3623.302mil|Location1.Y=2903.155mil|Location2.Y=2914.405mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (5.906mil &lt; 10mil) Between Pad L1-1(3660mil,3020mil) on Top Layer And Track (3617.677mil,2901.89mil)(3853.898mil,2901.89mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [5.906mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3612.052mil|Location2.X=3623.302mil|Location1.Y=3125.595mil|Location2.Y=3136.845mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3612.052mil|Location2.X=3623.302mil|Location1.Y=3125.595mil|Location2.Y=3136.845mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (5.906mil &lt; 10mil) Between Pad L1-1(3660mil,3020mil) on Top Layer And Track (3617.677mil,3138.11mil)(3853.898mil,3138.11mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [5.906mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3848.273mil|Location2.X=3859.523mil|Location1.Y=2903.155mil|Location2.Y=2914.405mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3848.273mil|Location2.X=3859.523mil|Location1.Y=2903.155mil|Location2.Y=2914.405mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (5.906mil &lt; 10mil) Between Pad L1-2(3811.575mil,3020mil) on Top Layer And Track (3617.677mil,2901.89mil)(3853.898mil,2901.89mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [5.906mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3763.627mil|Location2.X=3774.877mil|Location1.Y=3125.595mil|Location2.Y=3136.845mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3763.627mil|Location2.X=3774.877mil|Location1.Y=3125.595mil|Location2.Y=3136.845mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (5.906mil &lt; 10mil) Between Pad L1-2(3811.575mil,3020mil) on Top Layer And Track (3617.677mil,3138.11mil)(3853.898mil,3138.11mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [5.906mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5191.713mil|Location2.X=5202.963mil|Location1.Y=3038.273mil|Location2.Y=3049.523mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5191.713mil|Location2.X=5202.963mil|Location1.Y=3038.273mil|Location2.Y=3049.523mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (6.173mil &lt; 10mil) Between Pad SW1-2(5180.472mil,3023.898mil) on Top Layer And Track (5204.362mil,3043.898mil)(5214.362mil,3043.898mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [6.173mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5216.399mil|Location2.X=5227.649mil|Location1.Y=3038.273mil|Location2.Y=3049.523mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5216.399mil|Location2.X=5227.649mil|Location1.Y=3038.273mil|Location2.Y=3049.523mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.449mil &lt; 10mil) Between Pad SW1-3(5239.528mil,3023.898mil) on Top Layer And Track (5204.362mil,3043.898mil)(5214.362mil,3043.898mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [7.449mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5250.241mil|Location2.X=5261.491mil|Location1.Y=3038.273mil|Location2.Y=3049.523mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5250.241mil|Location2.X=5261.491mil|Location1.Y=3038.273mil|Location2.Y=3049.523mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (5.118mil &lt; 10mil) Between Pad SW1-3(5239.528mil,3023.898mil) on Top Layer And Track (5262.362mil,3043.898mil)(5302.362mil,3043.898mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [5.118mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4996.737mil|Location2.X=5007.987mil|Location1.Y=2972.072mil|Location2.Y=2983.322mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4996.737mil|Location2.X=5007.987mil|Location1.Y=2972.072mil|Location2.Y=2983.322mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (9.725mil &lt; 10mil) Between Pad SW1-4(5007.244mil,2998.307mil) on Top Layer And Track (5002.362mil,2940.898mil)(5002.362mil,2968.898mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [9.725mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4996.737mil|Location2.X=5007.987mil|Location1.Y=3011.383mil|Location2.Y=3022.633mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4996.737mil|Location2.X=5007.987mil|Location1.Y=3011.383mil|Location2.Y=3022.633mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (5.906mil &lt; 10mil) Between Pad SW1-4(5007.244mil,2998.307mil) on Top Layer And Track (5002.362mil,3023.898mil)(5002.362mil,3043.898mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [5.906mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5296.737mil|Location2.X=5307.987mil|Location1.Y=2972.072mil|Location2.Y=2983.322mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5296.737mil|Location2.X=5307.987mil|Location1.Y=2972.072mil|Location2.Y=2983.322mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (9.725mil &lt; 10mil) Between Pad SW1-5(5294.646mil,2998.307mil) on Top Layer And Track (5302.362mil,2940.898mil)(5302.362mil,2968.898mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [9.725mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5296.737mil|Location2.X=5307.987mil|Location1.Y=3012.383mil|Location2.Y=3023.633mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5296.737mil|Location2.X=5307.987mil|Location1.Y=3012.383mil|Location2.Y=3023.633mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.906mil &lt; 10mil) Between Pad SW1-5(5294.646mil,2998.307mil) on Top Layer And Track (5302.362mil,3025.898mil)(5302.362mil,3043.898mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [7.906mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5296.737mil|Location2.X=5307.987mil|Location1.Y=2886.265mil|Location2.Y=2897.515mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5296.737mil|Location2.X=5307.987mil|Location1.Y=2886.265mil|Location2.Y=2897.515mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.11mil &lt; 10mil) Between Pad SW1-6(5294.646mil,2911.693mil) on Top Layer And Track (5302.362mil,2863.898mil)(5302.362mil,2883.898mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [8.11mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5296.737mil|Location2.X=5307.987mil|Location1.Y=2926.576mil|Location2.Y=2937.826mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5296.737mil|Location2.X=5307.987mil|Location1.Y=2926.576mil|Location2.Y=2937.826mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (9.52mil &lt; 10mil) Between Pad SW1-6(5294.646mil,2911.693mil) on Top Layer And Track (5302.362mil,2940.898mil)(5302.362mil,2968.898mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [9.52mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4996.737mil|Location2.X=5007.987mil|Location1.Y=2886.265mil|Location2.Y=2897.515mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4996.737mil|Location2.X=5007.987mil|Location1.Y=2886.265mil|Location2.Y=2897.515mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.11mil &lt; 10mil) Between Pad SW1-7(5007.244mil,2911.693mil) on Top Layer And Track (5002.362mil,2863.898mil)(5002.362mil,2883.898mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [8.11mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4996.737mil|Location2.X=5007.987mil|Location1.Y=2926.576mil|Location2.Y=2937.826mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4996.737mil|Location2.X=5007.987mil|Location1.Y=2926.576mil|Location2.Y=2937.826mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (9.52mil &lt; 10mil) Between Pad SW1-7(5007.244mil,2911.693mil) on Top Layer And Track (5002.362mil,2940.898mil)(5002.362mil,2968.898mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [9.52mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4500.157mil|Location2.X=4507.824mil|Location1.Y=2749.147mil|Location2.Y=2756.814mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4500.157mil|Location2.X=4507.824mil|Location1.Y=2749.147mil|Location2.Y=2756.814mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 10mil) Between Pad U2-3(4495mil,2747.716mil) on Top Layer And Text "R11" (4474mil,2693mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4540.144mil|Location2.X=4547.811mil|Location1.Y=2715.335mil|Location2.Y=2723.002mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\PCB_Design\AltiumDesign\My_Project\OBD-2 ESP32 Shield\OBD-2 ESP32 Shield.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4540.144mil|Location2.X=4547.811mil|Location1.Y=2715.335mil|Location2.Y=2723.002mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 10mil) Between Pad U2-4(4545mil,2747.716mil) on Top Layer And Text "R11" (4474mil,2693mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br></body>
+</html>
