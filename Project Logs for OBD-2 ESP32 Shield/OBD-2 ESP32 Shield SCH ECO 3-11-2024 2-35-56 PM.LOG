@@ -1,0 +1,5 @@
+Remove Pin=J6-5 From Net=GPIO4
+Remove Pin=J6-8 From Net=GPIO5
+Change Component Footprint: Designator=J1 Old Footprint=1-Row, 15-Position, 2.54mm New Footprint=2-ROW, 15-POSITION, 2.54MM
+Change Component Comment: Designator=J1 Old Comment=Conn 1x15, 2.45mm New Comment=ESP32-Connector
+Change Component Kind : Designator=J1 Old Kind=Net Tie New Kind=Standard (No BOM)

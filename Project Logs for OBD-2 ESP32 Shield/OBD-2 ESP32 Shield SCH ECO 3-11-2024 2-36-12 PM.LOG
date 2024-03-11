@@ -1,0 +1,3 @@
+Remove Pin=J1-6 From Net=LED2
+Remove Pin=J1-7 From Net=LED1
+Remove Pin=J1-10 From Net=ADC
