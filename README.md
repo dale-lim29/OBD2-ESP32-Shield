@@ -3,3 +3,5 @@ This project is to the board as a dongle that fits the size of the development b
 * ESP32-30Pin Development Board
 ![alt text](Images/ESP32-30P.png)
 
+* ESP32-30Pin Development Board Dimension
+![alt text](Images/ESP32-30Pin_Development_Board_Dimensions.jpg)
